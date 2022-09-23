@@ -1,3 +1,6 @@
+import numpy as np
+a = np.array([4, 10, 12, 23, -2, -1, 0, 0, 0, -6, 3, -7])
+
 # 1 How many negative numbers are there?
     there are 4 negative numbers
 print(a[a < 0])
@@ -31,3 +34,11 @@ np.square(a)
 np.mean(np.square(a))
 np.std(np.square(a))
 
+# 6 A common statistical operation on a dataset is centering. 
+#This means to adjust the data such that the mean of the data is 0. 
+#This is done by subtracting the mean from each data point. 
+(a -a.mean())
+
+
+# 7 Calculate the z-score for each data point. Recall that the z-score is given by:
+(a - a.mean())/a.std()

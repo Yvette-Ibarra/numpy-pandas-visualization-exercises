@@ -90,7 +90,79 @@ fruits[fruits.str.count('a|e|i|o|u') == fruits.str.count('a|e|i|o|u').max()]
 
 # Use pandas to create a Series named letters from the following string. The easiest way to make this string into a Pandas series is to use list to convert each individual letter into a single string on a basic Python list.
 
+letters = pd.Series(list('hnvidduckkqxwymbimkccexbkmqygkxoyndmcxnwqarhyffsjpsrabtjzsypmzadfavyrnndndvswreauxovncxtwzpwejilzjrmmbbgbyxvjtewqthafnbkqplarokkyydtubbmnexoypulzwfhqvckdpqtpoppzqrmcvhhpwgjwupgzhiofohawytlsiyecuproguy'))
+
+# 1 Which letter occurs the most frequently in the letters Series?
+ # letter y
+letters.describe()['top']
+
+# 2 Which letter occurs the Least frequently?
+    #the least frequent letter is l
+letters_count.idxmin()
+
+# 3 How many vowels are in the Series?
+    # there are 34 vowels
+vowels =list('aeiou')
+letters[letters.isin(vowels)].count()
+#sum(letters.str.count(r'[aeiuo]'))
+
+# 4 How many consonants are in the Series?
+letters.str.len().count()
+letters.str.len().count() - letters[letters.isin(vowels)].count()
+
+# 5 Create a Series that has all of the same letters but uppercased.
+uppercase_letters = letters.str.upper()
+uppercase_letters
+
+# 6 Create a bar plot of the frequencies of the 6 most commonly occuring letters.
+letters_count.head(6)
+
+letters_count.head(6).plot.bar()
 
 
+# Use pandas to create a Series named numbers from the following list:
+numbers = pd.Series(['$796,459.41', '$278.60', '$482,571.67', '$4,503,915.98', '$2,121,418.3', '$1,260,813.3', '$87,231.01', '$1,509,175.45', '$4,138,548.00', '$2,848,913.80', '$594,715.39', '$4,789,988.17', '$4,513,644.5', '$3,191,059.97', '$1,758,712.24', '$4,338,283.54', '$4,738,303.38', '$2,791,759.67', '$769,681.94', '$452,650.23'])
 
+# 1 What is the data type of the numbers Series?
+    # type object
+numbers
 
+# 2 How many elements are in the number Series?
+    # There are 20 elements in the series
+numbers.count()
+
+# 3 Perform the necessary manipulations by accessing Series attributes and methods to convert the numbers 
+# Series to a numeric data type.
+numbers.str.removeprefix("$")
+numbers_2 = numbers.str.removeprefix("$").str.replace(',','').astype('float')
+
+# 4 Run the code to discover the maximum value from the Series.
+    # The maximum value is 4789988.17
+numbers_2.max()
+
+# 5 Run the code to discover the minimum value from the Series.
+    # The minimum value is 278.6
+numbers_2.min()
+
+# 6 What is the range of the values in the Series?
+    # the range is 4789709.57
+numbers_2.max()-numbers_2.min()
+
+# 7 Bin the data into 4 equally sized intervals or bins and output how many values fall into each bin.
+'''
+(-4511.11, 1197705.993]       7
+(3592560.778, 4789988.17]     6
+(1197705.993, 2395133.385]    4
+(2395133.385, 3592560.778]    3
+dtype: int64
+'''
+
+pd.cut(numbers_2,4).value_count
+
+# 8 Plot the binned data in a meaningful way. Be sure to include a title and axis labels.
+pd.cut(numbers_2,4).value_counts().plot.bar(color='violet', width=.4)
+plt.title('Numbers Value Counts 2 bins')
+plt.xticks(rotation=45)
+plt.xlabel('Numbers')
+plt.ylabel('Frequency')
+plt.show()

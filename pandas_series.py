@@ -166,3 +166,60 @@ plt.xticks(rotation=45)
 plt.xlabel('Numbers')
 plt.ylabel('Frequency')
 plt.show()
+
+
+# Use pandas to create a Series named exam_scores from the following list:
+exam_score = pd.Series([60, 86, 75, 62, 93, 71, 60, 83, 95, 78, 65, 72, 69, 81, 96, 80, 85, 92, 82, 78]
+)
+
+# 1 How many elements are in the exam_scores Series?
+    # there are 20 elements
+exam_score.count()
+
+# 2 Run the code to discover the minimum, the maximum, the mean, and the median scores for the exam_scores Series.
+    # max is 96 , min is 60, meidan is 79
+exam_score.describe()
+exam_score.median()
+
+# 3 Plot the Series in a meaningful way and make sure your chart has a title and axis labels.
+exam_score.plot.bar(color = 'orange', width = .5)
+plt.title('Exam Scores')
+plt.xticks(rotation = 0)
+plt.xlabel('student id')
+plt.ylabel('Score')
+
+plt.show()
+
+# 4 Write the code necessary to implement a curve for your exam_grades Series and save this as curved_grades.
+# Add the necessary points to the highest grade to make it 100, and add the same number of points to every 
+# other score in the Series as well.
+
+add_points = 100-exam_score.max()
+curved_grades = exam_score + add_points
+curved_grades
+
+# 5 Use a method to convert each of the numeric values in the curved_grades
+# Series into a categorical value of letter grades. For example, 86 should be a 'B' and 95 should be an 'A'. 
+# Save this as a Series named letter_grades.
+
+def get_letter_grade (number):
+    if number >= 90:
+        return ('A')
+    elif number >= 80:
+        return('B')
+    elif number >= 67:
+        return('C')
+    else:
+        return('F')
+
+letter_grades = curved_grades.apply(get_letter_grade)
+letter_grades
+
+# 6 Plot your new categorical letter_grades Series in a meaninful way and include a title and axis labels.
+letter_grades.value_counts().plot.bar(color = 'blue', width = .8)
+plt.title('Letter Grade Count')
+plt.xticks(rotation=15)
+plt.xlabel('Letter')
+plt.ylabel('count')
+
+plt.show()
